@@ -2,13 +2,31 @@
 
 .faq {
   background-color: $color-faq-background;
-
+ 
+ 
   div.card {
+    background-color: $color-faq-header;
+    color: white;
     background-color: unset;
+    border-radius: 0;
+
     .card-header {
       background-color: $color-faq-header;
+      border-radius: 0;
+      padding: 1.1rem;
+      border: unset;
+    }
+
+    button {
+      text-align: start;
+      font-size: large;
+      color: white;
+      border: unset;
+      background-color: unset;
     }
   }
+
+  
 
   &-title {
     font-size: 2.2rem;

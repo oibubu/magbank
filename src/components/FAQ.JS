@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
+import { Container, Row, Col, Accordion, Card, useAccordionButton } from 'react-bootstrap';
 import IconText from './IconText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,10 +8,9 @@ import {
   faShieldAlt,
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons';
-
 import './Faq.scss';
 
-const Jaaj = () => {
+const Faq = () => {
   const options = [
     { icon: faCreditCard, text: 'Cartão de crédito' },
     { icon: faWallet, text: 'Conta e abertura' },
@@ -21,9 +20,27 @@ const Jaaj = () => {
 
   const [index, setIndex] = useState(0);
 
-  const handleClick = (key) => {
-    setIndex(key);
-  };
+  function CustomToggle({ children, eventKey }) {
+    const decoratedOnClick = useAccordionButton(eventKey, () =>
+      setIndex(eventKey)
+    );
+
+    return (
+      <button
+        type="button"
+        onClick={decoratedOnClick}
+      >
+        {children}
+      </button>
+    );
+  }
+
+
+  const handleClick = key => {
+    console.log(key)
+    setIndex(key)
+  }
+
 
   return (
     <section className='faq text-light'>
@@ -39,7 +56,7 @@ const Jaaj = () => {
                   <FontAwesomeIcon
                     icon={icon}
                     size='2x'
-                    color={key === index ? '#FFF' : '#BBB'}
+                    color={'#FFF'}
                     onClick={() => handleClick(key)}
                   />
                 </Col>
@@ -57,7 +74,7 @@ const Jaaj = () => {
                 size={3}
                 className='faq-clickable mb-3'
                 textClassName='lead'
-                color={key === index ? '#FFF' : '#BBB'}
+                color='#FFF'
                 onClick={() => handleClick(key)}
                 key={key}
               >
@@ -69,9 +86,11 @@ const Jaaj = () => {
           <Col>
             <Accordion defaultActiveKey='0' activeKey={`${index}`}>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='0'>
-                  Lorem ipsum dolor sit amet
-                </Accordion.Toggle>
+                <Card.Header>
+                  <CustomToggle  eventKey='0'>
+                    Lorem ipsum dolor sit amet
+                  </CustomToggle>
+                </Card.Header>
                 <Accordion.Collapse eventKey='0'>
                   <Card.Body>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -87,9 +106,11 @@ const Jaaj = () => {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='1'>
-                  Nulla porttitor eros ac ex tristique posuere
-                </Accordion.Toggle>
+                <Card.Header>
+                  <CustomToggle eventKey='1'>
+                    Lorem ipsum dolor sit amet
+                  </CustomToggle>
+                </Card.Header>
                 <Accordion.Collapse eventKey='1'>
                   <Card.Body>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -105,9 +126,11 @@ const Jaaj = () => {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='2'>
-                  Quisque fringilla tincidunt arcu
-                </Accordion.Toggle>
+                <Card.Header>
+                  <CustomToggle eventKey='2'>
+                    Lorem ipsum dolor sit amet
+                  </CustomToggle>
+                </Card.Header>
                 <Accordion.Collapse eventKey='2'>
                   <Card.Body>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -123,9 +146,11 @@ const Jaaj = () => {
                 </Accordion.Collapse>
               </Card>
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='3'>
-                  Nam elementum lobortis purus a maximus tortor
-                </Accordion.Toggle>
+                <Card.Header>
+                  <CustomToggle eventKey='3'>
+                    Lorem ipsum dolor sit amet
+                  </CustomToggle>
+                </Card.Header>
                 <Accordion.Collapse eventKey='3'>
                   <Card.Body>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -148,4 +173,4 @@ const Jaaj = () => {
   );
 };
 
-export default Jaaj;
+export default Faq;
